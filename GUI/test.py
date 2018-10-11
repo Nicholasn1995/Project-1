@@ -1,12 +1,23 @@
 #importing from TKinter class so can use it now
 from tkinter import* 
 #define functions
+def record_expense():
+	expense_file = open("expenses.txt", 'a')
+	nameOnList = nameItem_value.get()
+	priceOnList = price_value.get()
+	expense_file.write("\n" +str(nameOnList) + "," + str(priceOnList))
+
+def display_expense():
+	expense_file = open("expenses.txt", 'r')
+	print("Price \t\t Category")
+	for line in expense_file:
+		line = line.split(',')
+		print(line[0].rjust(3) + "\t\t" + line[1].rjust(7), end= "")
 
 def saveValues():
-	#checking if saved
 	print("Name of the item: ", nameItem_value.get())
 	print("Price of the item: ", price_value.get())
-	#print(price_value)
+
 #don't need this function, but just incase we want to create a window, here is a good reference
 def createNewWindow():
 	recordExpense = Toplevel()
@@ -20,7 +31,7 @@ def createNewWindow():
 	nameItem.grid(row = 0, column = 1)
 	price.grid(row = 1, column = 1)
 
-	saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = saveValues)
+	saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = record_expense)
 	saveButton.grid(row = 2, column = 1)
 	
 	recordExpense.mainloop()
@@ -51,13 +62,15 @@ nameItem_value = StringVar()
 price_value = StringVar()
 
 #creation of button: Button(location, text, fg = (text color)) or bg = background color
-button1 = Button(text = "Quit", fg = "blue", bg = "Grey", command = quit)
-button2 = Button(text = "Record Expense", fg = "red",bg= "Grey", command = createNewWindow)
+quitButton = Button(text = "Quit", fg = "blue", bg = "Grey", command = quit)
+recordButton = Button(text = "Record Expenses", fg = "red",bg= "Grey", command = createNewWindow)
+displayButton = Button(text = "Display Expenses", fg = "red",bg= "Grey", command = display_expense)
 #by default, pack stacks objects on top of one another. 
 #define side = to specify where on window you want
 
-button2.pack(in_=topFrame, side = LEFT)
-button1.pack(in_=topFrame, side = RIGHT)
+recordButton.pack(in_ = topFrame, side = LEFT)
+quitButton.pack(in_ = topFrame, side = RIGHT)
+displayButton.pack(in_ = topFrame, side = LEFT)
 
 #place window in infinite loop, keeps it displayed, until you press close
 mainWindow.mainloop()
