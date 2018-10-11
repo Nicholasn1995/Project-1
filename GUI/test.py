@@ -5,7 +5,7 @@ def record_expense():
 	expense_file = open("expenses.txt", 'a')
 	nameOnList = nameItem_value.get()
 	priceOnList = price_value.get()
-	expense_file.write("\n" +str(nameOnList) + "," + str(priceOnList))
+	expense_file.write(str(nameOnList) + "," + str(priceOnList) + "\n")
 
 def display_expense():
 	expense_file = open("expenses.txt", 'r')
