@@ -1,6 +1,22 @@
 #importing from TKinter class so can use it now
 from tkinter import* 
 #define functions
+def checkIsInteger(x):
+	try:
+		int(x)
+		return True
+	except ValueError:
+		return False
+
+def checkTitleNoInt(x):
+	testString = str(x)
+	for i in x:
+		if i.isdigit() == True:
+			return False
+			break
+	else:
+		i+=1
+
 def record_expense():
 	expense_file = open("expenses.txt", 'a')
 	nameOnList = nameItem_value.get()
@@ -31,7 +47,7 @@ def createNewWindow():
 	nameItem.grid(row = 0, column = 1)
 	price.grid(row = 1, column = 1)
 
-	saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = record_expense)
+	saveButton = Button(recordExpense, text = "Job's Done", fg = "Blue", bg = "Grey", command = checkIsInteger(str(price_value.get())) and recordExpense)
 	saveButton.grid(row = 2, column = 1)
 	
 	recordExpense.mainloop()
